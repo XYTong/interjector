@@ -37,6 +37,13 @@ When the server is running, go to `./settings.html` to fill in the configuration
 - Translation backend includes 'free-google-translate', 'google-translate' (not implemented yet), 'bing-translate'(not implemented yet), 'deepl-translate'(not implemented yet), 'openai-translate'. When using 'openai-translate', you need to provide the model and prompt.
 - For completion, you need to fill an API key and URL which follows OpenAI's API style. You also need to provide a prompt for the completion.
 
+## Screenshot
+
+Screenshot demonstrating interjector generating response while listening to an interview:
+
+![Screenshot demonstrating interjector generating response while listening to an interview](./docs/1.png)
+
+
 ## TODO
 
 1. The current implementation of speech recognition is based on Web Speech API. As of 2024-05-20 This API is not supported by most browsers and Chrome can almost only recognize English. We need to implement a more robust solution that works across more browsers and supports more languages.
