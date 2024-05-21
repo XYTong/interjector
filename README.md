@@ -41,7 +41,7 @@ When the server is running, go to `./settings.html` to fill in the configuration
 
 Screenshot demonstrating interjector generating response while listening to an interview:
 
-![Screenshot demonstrating interjector generating response while listening to an interview](./docs/1.png)
+![Screenshot demonstrating interjector generating response while listening to an interview](https://raw.githubusercontent.com/simonmysun/interjector/master/docs/screenshots/1.png)
 
 
 ## TODO
