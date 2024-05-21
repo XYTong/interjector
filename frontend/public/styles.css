@@ -1,0 +1,98 @@
+* {
+  outline: 1px solid #f0f;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+#container {
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  font-size: 1.5vw;
+  overflow: auto;
+}
+
+#transcript,
+#transcript-translated,
+#completions {
+  width: 33%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+#console {
+  width: 100%;
+}
+
+#running-indicator,
+#audio-indicator,
+#sound-indicator,
+#speech-indicator {
+  display: inline-block;
+  vertical-align: text-top;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  margin-right: 5px;
+  box-shadow: #111 -0.04em -0.04em 0.08em -0.02em inset, #fff 0.02em 0.02em 0.08em 0.01em inset, #333 0.02em 0.02em 0.1em -0.02em, #fff -0.02em -0.02em 0.02em 0;
+}
+
+#running-indicator {
+  background-color: rgb(211, 211, 211);
+}
+
+#audio-indicator {
+  background-color: rgb(189, 210, 174);
+}
+
+#sound-indicator {
+  background-color: rgb(173, 216, 230);
+}
+
+#speech-indicator {
+  background-color: rgb(255, 218, 185);
+}
+
+#running-indicator.active {
+  background-color: rgb(46, 139, 87);
+}
+
+#audio-indicator.active {
+  background-color: rgb(128, 225, 59);
+}
+
+#sound-indicator.active {
+  background-color: rgb(70, 130, 180);
+}
+
+#speech-indicator.active {
+  background-color: rgb(255, 165, 0);
+}
+
+.not-final {
+  color: #555;
+}
+
+.transcript-item {
+  display: inline;
+}
+
+.completion,
+#transcript-translated-ongoing,
+#transcript-ongoing {
+  margin-bottom: 1em;
+}

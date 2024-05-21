@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<head>
+  <title>Interjector</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" type="text/css" href="./static/styles.css">
+</head>
+
+<body>
+  <div id="console">
+    <button id="start-btn">Start</button>
+    <button id="clear-btn">Clear</button>
+    <button id="complete-btn">Complete</button>
+    🎙️: <div id="running-indicator"></div>
+    🔊: <div id="audio-indicator"></div>
+    🎶: <div id="sound-indicator"></div>
+    💬: <div id="speech-indicator"></div>
+    <a href="/settings.html">Settings</a>
+  </div>
+  <div id="container">
+    <div id="transcript">
+      <div id="transcript-final"></div>
+      <div id="transcript-ongoing"></div>
+    </div>
+    <div id="transcript-translated">
+      <div id="transcript-translated-final"></div>
+      <div id="transcript-translated-ongoing"></div>
+    </div>
+    <div id="completions"></div>
+  </div>
+  <script src="./static/client.bundle.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "interjector",
+  "version": "0.0.1",
+  "main": "scripts.js",
+  "scripts": {
+    "clean": "rm -rf dist/* && mkdir dist/static",
+    "build-frontend": "esbuild ./frontend/src/main.ts --bundle --minify --outfile=./dist/static/client.bundle.js --platform=browser",
+    "build-backend": "esbuild ./backend/src/server.ts --bundle --minify --outfile=./dist/server.bundle.js --platform=node",
+    "build": "npm run clean && npm run build-frontend && npm run build-backend && cp ./frontend/public/* ./dist/static/",
+    "dev-frontend": "npm run build-frontend -- --sourcemap --watch",
+    "dev-backend": "npm run build-backend -- --sourcemap --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Maoyin Sun <mail@maoyin.eu> (https://maoyin.eu/)",
+  "license": "MIT",
+  "description": "Interjector is a web application designed to enhance your communication experience. This tool offers a unique blend of features that can translate, summarize, and process your speech to provide a more comprehensive and engaging interaction. ",
+  "devDependencies": {
+    "esbuild": "0.21.0"
+  },
+  "dependencies": {
+    "@types/dom-speech-recognition": "^0.0.4"
+  }
+}
