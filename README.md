@@ -27,7 +27,7 @@ To get started with Interjector, you will need to host the application which req
 1. Run `npm run build`.
 1. Enter the `./dist` directory and run `node server.js`.
 
-You will need configure it according to the next chapter.
+You will need to configure it according to the next chapter.
 
 ## Configuration
 
@@ -36,6 +36,7 @@ When the server is running, go to `./settings.html` to fill in the configuration
 - Use BCP 47 language tag for the source language and target language. The source language is also used for speech recognition.
 - Translation backend includes 'free-google-translate', 'google-translate' (not implemented yet), 'bing-translate'(not implemented yet), 'deepl-translate'(not implemented yet), 'openai-translate'. When using 'openai-translate', you need to provide the model and prompt.
 - For completion, you need to fill an API key and URL which follows OpenAI's API style. You also need to provide a prompt for the completion.
+- [Prompt Examples](./docs/prompt-examples.md) are provided to help you get started.
 
 ## Screenshot
 
