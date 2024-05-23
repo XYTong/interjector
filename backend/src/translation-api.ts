@@ -14,7 +14,6 @@ const freeGoogleTranslator = function () {
         targetLanguage: options.targetLanguage
       })
     }).then(res => res.json());
-    // console.log(res);
     return { text: res[0] };
   }
 };

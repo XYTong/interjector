@@ -57,7 +57,6 @@ class Interjector {
       for (let i = event.resultIndex; i < event.results.length; i++) {
         if (event.results[i].isFinal) {
           this.resultManager.addFinalTranscript(event.results[i][0].transcript);
-          console.log(globalOptions);
           fetch(`/api/translate`, {
             method: 'POST',
             headers: {
@@ -124,7 +123,7 @@ class Interjector {
       this.consolePanel.deactiveSpeechIndicator();
     });
     this.speechRecognitionController.on('nomatch', () => {
-      console.log('nomatch');
+      console.log('nomatch'); // when does this happen?
     });
 
   }
