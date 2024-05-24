@@ -69,7 +69,8 @@ class Interjector {
               backend: globalOptions.translation.backend,
               apiUrl: globalOptions.translation.apiUrl,
               apiKey: globalOptions.translation.apiKey,
-              model: globalOptions.translation.model
+              model: globalOptions.translation.model,
+              prompt: globalOptions.translation.prompt
             })
           })
             .then((res: Response): Promise<{ text: string }> => res.json())
@@ -92,7 +93,8 @@ class Interjector {
               backend: globalOptions.translation.backend,
               apiUrl: globalOptions.translation.apiUrl,
               apiKey: globalOptions.translation.apiKey,
-              model: globalOptions.translation.model
+              model: globalOptions.translation.model,
+              prompt: globalOptions.translation.prompt
             })
           })
             .then((res: Response): Promise<{ text: string }> => res.json())
