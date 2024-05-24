@@ -25,7 +25,7 @@ To get started with Interjector, you will need to host the application which req
 1. Clone this repository.
 1. Install the dependencies via `npm install`.
 1. Run `npm run build`.
-1. Enter the `./dist` directory and run `node server.js`.
+1. Enter the `./dist` directory and run `node server.bundle.js`.
 
 You will need to configure it according to the next chapter.
 
