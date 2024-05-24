@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "scripts.js",
   "scripts": {
-    "clean": "rm -rf dist/* && mkdir dist/static",
+    "clean": "rm -rf dist/* && mkdir -p dist/static",
     "build-frontend": "esbuild ./frontend/src/main.ts --bundle --minify --outfile=./dist/static/client.bundle.js --platform=browser",
     "build-backend": "esbuild ./backend/src/server.ts --bundle --minify --outfile=./dist/server.bundle.js --platform=node",
     "build": "npm run clean && npm run build-frontend && npm run build-backend && cp ./frontend/public/* ./dist/static/",
