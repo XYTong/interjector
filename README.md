@@ -29,13 +29,20 @@ To get started with Interjector, you will need to host the application which req
 
 You will need to configure it according to the next chapter.
 
+Notes:
+
+- You can specify the host and port by setting the `HOST` and `PORT` environment variables when running the server. The default port is 8000.
+- Currently, the recognition is only using the Web Speech API which is supported by almost only Chrome and the performance of languages other than English is not promising. In the future, we will present a Whisper backend to support more browsers and languages.
+- Chrome requires a secure context to use the Web Speech API. I have packed a self-signed certificate but using it in a public production environment is highly unrecommended. You can specify `KEY_PATH`, `CERT_PATH` in the environment variables to use your own certificate or let your reverse proxy handle the SSL. To disable HTTPS, set `HTTP_ONLY` to `true`.
+- If the self-signed certificate is used, you have to allow Chrome to load insecure content by e.g. typing `badidea`. 
+
 ## Configuration
 
 When the server is running, go to `./settings.html` to fill in the configuration such as the API for translation and GPT, and the prompts.
 
 - Use BCP 47 language tag for the source language and target language. The source language is also used for speech recognition.
-- Translation backend includes 'free-google-translate', 'google-translate' (not implemented yet), 'bing-translate'(not implemented yet), 'deepl-translate'(not implemented yet), 'openai-translate'. When using 'openai-translate', you need to provide the model and prompt.
-- For completion, you need to fill an API key and URL which follows OpenAI's API style. You also need to provide a prompt for the completion.
+- Translation backend includes 'free-google-translate', ~~'google-translate'~~ (not implemented yet), ~~'bing-translate'~~ (not implemented yet), ~~'deepl-translate'~~ (not implemented yet), 'openai-translate'. When using 'openai-translate', you need to provide the model and prompt.
+- For completion, you need to fill in an API key and URL which follows OpenAI's API style. You also need to provide a prompt for the completion.
 - [Prompt Examples](./docs/prompt-examples.md) are provided to help you get started.
 
 ## Screenshot
