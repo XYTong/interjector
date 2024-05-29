@@ -19,10 +19,10 @@ const globalOptions: ServerOptions = {
 };
 
 const routes: Routes = {
-  '/index.html': (req: http.IncomingMessage, res: http.ServerResponse): void => {
-    (routes['/'] as RouteHandler)(req, res);
-  },
   '/': (req: http.IncomingMessage, res: http.ServerResponse): void => {
+    (routes['/index.html'] as RouteHandler)(req, res);
+  },
+  '/index.html': (req: http.IncomingMessage, res: http.ServerResponse): void => {
     (routes['/static'] as RouteHandler)(req, res, '/index.html');
   },
   '/settings.html': (req: http.IncomingMessage, res: http.ServerResponse): void => {
