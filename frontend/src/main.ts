@@ -135,51 +135,110 @@ class Interjector {
     completionDom.classList.add('completion');
     const resultManager = this.resultManager;
     resultManager.addCompletion(completionDom);
-    fetch(`${globalOptions.completion.apiURL
-      }/chat/completions`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${globalOptions.completion.apiKey} `
-      },
-      body: JSON.stringify({
-        model: globalOptions.completion.model,
-        messages: [
-          {
-            role: 'system',
-            content: globalOptions.completion.prompt,
-          },
-          {
-            role: 'user',
-            content: resultManager.getTranscript(),
+    if (globalOptions.completion.model.startsWith('gemini')) {
+      fetch(`${globalOptions.completion.apiURL
+        }${globalOptions.completion.model}:streamGenerateContent?key=${globalOptions.completion.apiKey}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-goog-api-key': globalOptions.completion.apiKey,
+        },
+        // mode: 'no-cors',
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                {
+                  text: globalOptions.completion.prompt + '\n\n' + resultManager.getTranscript(),
+                },
+              ],
+            }
+          ],
+        }),
+      }).then((res: Response): any => {
+        const decoder = new TextDecoder();
+        const reader = res.body!.getReader();
+        let unprocessedParts: string = '';
+        let skipFirstByte = false;
+        let completeJSON = true;
+        let JSONPart = '';
+        reader.read().then(function processResult({ done, value }) { // how is the type here?
+          const lines = done ? unprocessedParts.split("\n") : (unprocessedParts + decoder.decode(value)).split("\n");
+          unprocessedParts = lines.pop()!;
+          for (let line of lines) {
+            if (skipFirstByte === false && line.length > 0) {
+              skipFirstByte = true;
+              line = line.slice(1);
+            }
+            if (completeJSON === true && (line === ',\r' || line === ']\r')) {
+              continue;
+            } else {
+              completeJSON = false;
+              JSONPart += line;
+              try {
+                let data = JSON.parse(JSONPart);
+                JSONPart = '';
+                completeJSON = true;
+                const tokenDom = document.createElement('span');
+                tokenDom.classList.add('token');
+                tokenDom.innerText = data.candidates[0].content.parts[0].text;
+                completionDom.appendChild(tokenDom);
+                resultManager.scrollToBottomCompletions();
+              } catch (e) {
+                continue;
+              }
+            }
           }
-        ],
-        stream: true
-      }),
-      signal: abortController.signal,
-    }).then((res: Response): any => {
-      const decoder = new TextDecoder();
-      const reader = res.body!.getReader();
-      let unprocessedParts: string = '';
-      reader.read().then(function processResult({ done, value }) { // how is the type here?
-        const lines = done ? unprocessedParts.split("\n") : (unprocessedParts + decoder.decode(value)).split("\n");
-        unprocessedParts = lines.pop()!;
-        for (const line of lines) {
-          if (line.length === 0 || line === "data: [DONE]") {
-            continue;
-          }
-          const content = JSON.parse(line.replace("data: ", ""));
-          if (content.choices.length > 0 && content.choices[0].finish_reason !== 'stop') {
-            const tokenDom = document.createElement('span');
-            tokenDom.classList.add('token');
-            tokenDom.innerText = content.choices[0].delta.content;
-            completionDom.appendChild(tokenDom);
-            resultManager.scrollToBottomCompletions();
-          }
-        }
-        return done ? undefined : reader.read().then(processResult);
+          return done ? undefined : reader.read().then(processResult);
+        });
       });
-    });
+    } else {
+      fetch(`${globalOptions.completion.apiURL
+        }/chat/completions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${globalOptions.completion.apiKey} `
+        },
+        body: JSON.stringify({
+          model: globalOptions.completion.model,
+          messages: [
+            {
+              role: 'system',
+              content: globalOptions.completion.prompt,
+            },
+            {
+              role: 'user',
+              content: resultManager.getTranscript(),
+            }
+          ],
+          stream: true
+        }),
+        signal: abortController.signal,
+      }).then((res: Response): any => {
+        const decoder = new TextDecoder();
+        const reader = res.body!.getReader();
+        let unprocessedParts: string = '';
+        reader.read().then(function processResult({ done, value }) { // how is the type here?
+          const lines = done ? unprocessedParts.split("\n") : (unprocessedParts + decoder.decode(value)).split("\n");
+          unprocessedParts = lines.pop()!;
+          for (const line of lines) {
+            if (line.length === 0 || line === "data: [DONE]") {
+              continue;
+            }
+            const content = JSON.parse(line.replace("data: ", ""));
+            if (content.choices.length > 0 && content.choices[0].finish_reason !== 'stop') {
+              const tokenDom = document.createElement('span');
+              tokenDom.classList.add('token');
+              tokenDom.innerText = content.choices[0].delta.content;
+              completionDom.appendChild(tokenDom);
+              resultManager.scrollToBottomCompletions();
+            }
+          }
+          return done ? undefined : reader.read().then(processResult);
+        });
+      });
+    }
   }
 }
 
