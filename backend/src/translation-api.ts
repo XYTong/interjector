@@ -3,6 +3,7 @@ import type { TranslationOptions, TranslationResult, ChatCompletion } from './@t
 const freeGoogleTranslator = function () {
   // https://github.com/ssut/py-googletrans/issues/268
   return async function (options: TranslationOptions): Promise<TranslationResult> {
+    console.log(options);
     let res = await fetch(`${options.apiUrl}?client=dict-chrome-ex&sl=${options.sourceLanguage.slice(0, 2)}&tl=${options.targetLanguage.slice(0, 2)}&dt=t&q=${options.text}&id=UTF-8&oe=UTF-8`, {
       method: 'POST',
       headers: {
@@ -13,8 +14,9 @@ const freeGoogleTranslator = function () {
         sourceLanguage: options.sourceLanguage,
         targetLanguage: options.targetLanguage
       })
-    }).then(res => res.json());
+    }).then(res => res.text());
     console.log(res);
+    res = JSON.parse(res);
     while (typeof res !== 'string') {
       res = res[0];
     }
