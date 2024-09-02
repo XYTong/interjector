@@ -15,9 +15,8 @@
   "license": "MIT",
   "description": "Interjector is a web application designed to enhance your communication experience. This tool offers a unique blend of features that can translate, summarize, and process your speech to provide a more comprehensive and engaging interaction. ",
   "devDependencies": {
+    "@types/dom-speech-recognition": "^0.0.4",
+    "@types/node": "^22.5.2",
     "esbuild": "0.21.0"
-  },
-  "dependencies": {
-    "@types/dom-speech-recognition": "^0.0.4"
   }
 }
