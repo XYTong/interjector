@@ -53,6 +53,9 @@ const routes: Routes = {
         const payload = Buffer.concat(body).toString();
         if (payload) {
           const translationOption: TranslationOptions = JSON.parse(payload);
+          if (translationOption.backend === '') {
+            return res.end('Bad Request');
+          }
           translationAPI[translationOption.backend](translationOption).then((result) => {
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.write(JSON.stringify(result));
