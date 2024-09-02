@@ -14,6 +14,7 @@ const freeGoogleTranslator = function () {
         targetLanguage: options.targetLanguage
       })
     }).then(res => res.json());
+    console.log(res);
     while (typeof res !== 'string') {
       res = res[0];
     }
