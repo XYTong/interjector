@@ -53,6 +53,9 @@ const routes: Routes = {
         const payload = Buffer.concat(body).toString();
         if (payload) {
           const translationOption: TranslationOptions = JSON.parse(payload);
+          if (translationOption.backend === '') {
+            return res.end('Bad Request');
+          }
           translationAPI[translationOption.backend](translationOption).then((result) => {
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.write(JSON.stringify(result));
@@ -84,8 +87,18 @@ const route = (segments: string[], node: Routes | RouteHandler): RouteHandler =>
 };
 
 const requestListener: http.RequestListener = (req: http.IncomingMessage, res: http.ServerResponse) => {
-  return route(req.url!.split(/(?=\/)/), routes)(req, res);
+  try {
+    route(req.url!.split(/(?=\/)/), routes)(req, res);
+  } catch (e) {
+    console.error(e);
+    res.writeHead(500);
+    res.end('Internal Server Error');
+  }
 };
+
+process.on('uncaughtException', function (err) {
+  console.log('Caught exception: ', err);
+});
 
 if (globalOptions.httpOnly) {
   http.createServer(requestListener).listen(globalOptions.port, globalOptions.port, () => {

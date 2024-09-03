@@ -28,7 +28,7 @@ export interface TranslationOptions {
   text: string,
   sourceLanguage: string,
   targetLanguage: string,
-  backend: 'free-google-translate' | 'google-translate' | 'bing-translate' | 'deepl-translate' | 'openai-translate',
+  backend: 'free-google-translate' | 'google-translate' | 'bing-translate' | 'deepl-translate' | 'openai-translate' | '',
   apiUrl?: string,
   apiKey?: string,
   model?: string,
