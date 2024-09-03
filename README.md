@@ -42,7 +42,8 @@ When the server is running, go to `./settings.html` to fill in the configuration
 
 - Use BCP 47 language tag for the source language and target language. The source language is also used for speech recognition.
 - Translation backend includes 'free-google-translate', ~~'google-translate'~~ (not implemented yet), ~~'bing-translate'~~ (not implemented yet), ~~'deepl-translate'~~ (not implemented yet), 'openai-translate'. When using 'openai-translate', you need to provide the model and prompt.
-- For completion, you need to fill in an API key and URL which follows OpenAI's API style. You also need to provide a prompt for the completion.
+- For completion, you need to fill in an API key and URL. You also need to provide a prompt for the completion. If the model selected starts with 'gemini', the API URL is assumed to be Google Gemini style, otherwise, it is assumed to be OpenAI style.
+  - For example, you may set model to `gemini-1.5-flash-latest` and use `https://generativelanguage.googleapis.com/v1beta/models/` for API URL.
 - [Prompt Examples](./docs/prompt-examples.md) are provided to help you get started.
 
 ## Screenshot
